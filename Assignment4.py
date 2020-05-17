@@ -40,11 +40,11 @@ def get_recession_start():
     string value in a format such as 2005q3
     A recession is defined as starting with two consecutive quarters of GDP decline, 
     and ending with two consecutive quarters of GDP growth.'''
+    global gdp
     gdp = pd.read_excel('gdplev.xls', skiprows = 7, usecols= {'Unnamed: 4', 'Unnamed: 6'})
     gdp = gdp.loc[212:]
     gdp = gdp.rename(columns = {'Unnamed: 4': 'Quarter', 'Unnamed: 6': 'GDP'})
     gdp['GDP'] = pd.to_numeric(gdp['GDP'])
-    global gdp
     quarters = []
     for i in range(len(gdp) - 2):
         if (gdp.iloc[i][1] > gdp.iloc[i+1][1]) & (gdp.iloc[i+1][1] > gdp.iloc[i+2][1]):
